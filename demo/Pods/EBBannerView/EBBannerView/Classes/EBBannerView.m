@@ -99,7 +99,7 @@ static EBBannerWindow *sharedWindow;
     [sharedWindow.rootViewController.view addSubview:self];
     
     self.frame = CGRectMake(self.fixedX, -self.standardHeight, self.fixedWidth, self.standardHeight);
-    
+    sharedWindow.windowLevel = UIWindowLevelAlert;
     WEAK_SELF(weakSelf);
     [UIView animateWithDuration:_maker.animationDuration animations:^{
         weakSelf.frame = CGRectMake(weakSelf.fixedX, weakSelf.fixedY, weakSelf.fixedWidth, weakSelf.standardHeight);
@@ -122,6 +122,9 @@ static EBBannerWindow *sharedWindow;
         weakSelf.frame = CGRectMake(weakSelf.fixedX, -weakSelf.standardHeight, weakSelf.fixedWidth, weakSelf.standardHeight);
     } completion:^(BOOL finished) {
         [weakSelf removeFromSuperview];
+        sharedWindow.windowLevel = UIWindowLevelNormal;
+        UIWindow *originKeyWindow = UIApplication.sharedApplication.keyWindow;
+        [originKeyWindow makeKeyAndVisible];
     }];
 }
 

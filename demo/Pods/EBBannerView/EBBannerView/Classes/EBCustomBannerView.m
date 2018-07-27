@@ -155,6 +155,7 @@ static EBBannerWindow *sharedWindow;
 }
 
 -(void)hide{
+    sharedWindow.windowLevel = UIWindowLevelNormal;
     if (!self.maker.view.superview) {
         return;
     }
